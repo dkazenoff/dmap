@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from sublet import views
+import cas.views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', views.home, name='Sublet Landing Page'),
+    path('sublet/', views.verifyUser, name='home'),
+    path('sublet/login/', cas.views.login, name='login'),
+    # Does not redirect back from CAS on localhost
+	path('sublet/logout/', cas.views.logout, name='logout'),
 ]

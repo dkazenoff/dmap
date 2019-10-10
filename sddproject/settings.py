@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# CAS AUTH: Variables used for CAS
+CAS_VERSION = '3'
+CAS_SERVER_URL = 'https://cas-auth.rpi.edu/cas/'
+#CAS_LOGOUT_COMPLETELY = True
+CAS_PROVIDE_URL_TO_LOGOUT = True
+CAS_IGNORE_REFERER = True
+CAS_REDIRECT_URL = '/sublet'
 
 # Application definition
 
@@ -37,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sublet',
+    'cas',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +56,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cas.middleware.CASMiddleware',
 ]
+
+# CAS AUTHENTICATION BACKEND
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'cas.backends.CASBackend',
+)
+
+# CAS CALLBACK RESPONSES
+CAS_RESPONSE_CALLBACKS = (
+    'sublet.views.processAuthUser',
+)
 
 ROOT_URLCONF = 'sddproject.urls'
 
@@ -75,8 +96,8 @@ WSGI_APPLICATION = 'sddproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'HOST': 'mongodb+srv://sublet-app:dbpass123@subletapp-avcsz.mongodb.net/test?retryWrites=true&w=majority',
     }
 }
 
