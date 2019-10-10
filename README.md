@@ -12,7 +12,7 @@ CMD lines may need a "python -m " prepended.
 1. pip install pipenv
 3. pipenv shell
 
-### Run Server
+### Run Server (Within Pipenv)
 Server port can be changed but currently set to 8000.
 1. Run python manage.py runserver
 2. Visit localhost:8000
