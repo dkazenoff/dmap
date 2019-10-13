@@ -19,8 +19,9 @@ from sublet import views
 import cas.views
 
 urlpatterns = [
-    path('', views.home, name='Sublet Landing Page'),
-    path('sublet/', views.verifyUser, name='home'),
+    path('', views.landing, name='Sublet Landing Page'),
+    path('sublet/', views.home, name='home'),
+    path('sublet/newuser/', views.newuser, name='register'),
     path('sublet/login/', cas.views.login, name='login'),
     # Does not redirect back from CAS on localhost
 	path('sublet/logout/', cas.views.logout, name='logout'),

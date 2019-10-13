@@ -1,26 +1,38 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth.models import User
+from sublet.models import CASUser
 
 
-# Create your views here.
-def home(request):
+# MAIN LANDING PAGE
+def landing(request):
 	return render(request, 'index.html')
 
+# MAIN USER/LISTINGS HOME PAGE
+def home(request):
+	user = verifyUser(request)
+	if user.first_time:
+		return redirect('/sublet/newuser')
+	return render(request, 'home.html')
 
+# MAIN USER/LISTINGS HOME PAGE
+def newuser(request):
+	user = verifyUser(request)
+	return render(request, 'newuser.html')
+
+
+# None View Methods (Middleware)
 def processAuthUser(tree):
 	username = tree[0][0].text
 	try:
-		user = User.objects.get(username=username)
-	except User.DoesNotExist:
+		user = CASUser.objects.get(username=username)
+	except CASUser.DoesNotExist:
 		email = username.lower() + '@rpi.edu'
-		user = User(username=username,email=email)
+		user = CASUser(username=username,email=email)
 		user.save()
 
+# Check if user is allowed to use service
 def verifyUser(request):
 	try:
-		user = User.objects.get(username=request.user)
-	except User.DoesNotExist:
+		return CASUser.objects.get(username=request.user)
+	except CASUser.DoesNotExist:
 		return redirect('/sublet/login')
-	# Add logic to check if user is allowed here
-	return render(request, 'home.html')
