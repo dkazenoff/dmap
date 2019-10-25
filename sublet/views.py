@@ -27,7 +27,7 @@ def processAuthUser(tree):
 		user = CASUser.objects.get(username=username)
 	except CASUser.DoesNotExist:
 		email = username.lower() + '@rpi.edu'
-		user = CASUser(username=username,email=email)
+		user = CASUser(username=username,email=email,first_time=True)
 		user.save()
 
 # Check if user is allowed to use service

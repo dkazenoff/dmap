@@ -28,9 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # CAS AUTH: Variables used for CAS
-CAS_VERSION = '3'
+CAS_VERSION = '2'
 CAS_SERVER_URL = 'https://cas-auth.rpi.edu/cas/'
-#CAS_LOGOUT_COMPLETELY = True
+CAS_LOGOUT_COMPLETELY = True
 CAS_PROVIDE_URL_TO_LOGOUT = True
 CAS_IGNORE_REFERER = True
 CAS_REDIRECT_URL = '/sublet'
