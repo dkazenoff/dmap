@@ -1,5 +1,7 @@
-django
-django-cas-client
-djongo
-dnspython
 pipenv
+sqlparse=0.2.4
+django
+dnspython
+djongo
+django-cas-client
+pillow
