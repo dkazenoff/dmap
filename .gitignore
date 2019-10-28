@@ -1,4 +1,3 @@
-# ignore a single file
 Pipfile
 Pipfile.lock
-.DS_store
+.DS_Store

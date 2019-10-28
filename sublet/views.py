@@ -35,6 +35,12 @@ def newuser(request):
 		error = "Invalid form content."
 	return render(request, 'newuser.html', {"error": error})
 
+def create(request):
+	return render(request, 'create.html')
+
+def view(request):
+	return render(request, 'view.html')
+
 
 # None View Methods (Middleware)
 def processAuthUser(tree):

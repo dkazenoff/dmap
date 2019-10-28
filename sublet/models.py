@@ -13,5 +13,8 @@ class CASUser(models.Model):
 # Listing Object for Collection in MongoDB
 class SubletListing(models.Model):
     owner = models.CharField(max_length=6, primary_key=True)
-    
+    address = models.CharField(max_length=100)
+    bedrooms = models.IntegerField()
+    bathrooms = models.IntegerField()
+    image = models.ImageField(upload_to = 'sublet_img/', default = 'sublet_img/default.png')
     
