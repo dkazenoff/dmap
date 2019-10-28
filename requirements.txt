@@ -1,4 +1,5 @@
-Django
+django
 django-cas-client
 djongo
 dnspython
+pipenv

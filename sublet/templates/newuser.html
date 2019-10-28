@@ -23,15 +23,21 @@
     <div class="container">
         <h1>Welcome {{user.username}}</h1>
         <p>We have noticed you are a new user! Please provide information...</p>
-        <form class="col-md-6">
+        <p class="text-danger">{{error}}</p>
+        
+        <!-- START FORM -->
+        <form class="col-md-6" action="/sublet/newuser/" method="POST">
+            {% csrf_token %}
             <div class="form-group">
-                <input class="form-control form-control-lg" type="text" placeholder="First Name">
+                <input class="form-control form-control-lg" type="text" name="first" placeholder="First Name" required>
             </div>
             <div class="form-group">
-                <input class="form-control form-control-lg" type="text" placeholder="Last Name">
+                <input class="form-control form-control-lg" type="text" name="last" placeholder="Last Name" required>
             </div>
             <button type="submit" class="btn btn-primary mb-2">Save Changes</button>
         </form>
+        <!-- END FORM -->
+
         <div class="col-md-6 text-center">
             <a class="btn btn-primary btn-lg" href="/sublet/logout" role="button">Log Out</a>
         </div>  

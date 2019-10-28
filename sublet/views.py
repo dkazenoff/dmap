@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from sublet.models import CASUser
 
+from sublet.forms import NewUserForm
+
 
 # MAIN LANDING PAGE
 def landing(request):
@@ -17,7 +19,21 @@ def home(request):
 # MAIN USER/LISTINGS HOME PAGE
 def newuser(request):
 	user = verifyUser(request)
-	return render(request, 'newuser.html')
+	error = ""
+	# Check form submission
+	if request.method == "POST":
+		NUForm = NewUserForm(request.POST)
+		# Confirm valid data
+		if NUForm.is_valid():
+			# Update DB
+			user = CASUser.objects.get(username=request.user)
+			user.first_name = NUForm.cleaned_data['first']
+			user.last_name = NUForm.cleaned_data['last']
+			user.first_time = False
+			user.save()
+			return redirect('/sublet')
+		error = "Invalid form content."
+	return render(request, 'newuser.html', {"error": error})
 
 
 # None View Methods (Middleware)
