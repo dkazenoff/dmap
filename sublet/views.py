@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from sublet.models import CASUser
+from sublet.models import CASUser, Listing
 
-from sublet.forms import NewUserForm
+from sublet.forms import NewUserForm, ListingForm
 
 
 # MAIN LANDING PAGE
@@ -27,19 +27,51 @@ def newuser(request):
 		if NUForm.is_valid():
 			# Update DB
 			user = CASUser.objects.get(username=request.user)
-			user.first_name = NUForm.cleaned_data['first']
-			user.last_name = NUForm.cleaned_data['last']
+			user.first_name = NUForm.cleaned_data['first_name']
+			user.last_name = NUForm.cleaned_data['last_name']
 			user.first_time = False
 			user.save()
 			return redirect('/sublet')
 		error = "Invalid form content."
 	return render(request, 'newuser.html', {"error": error})
 
-def create(request):
-	return render(request, 'create.html')
+def create_listing(request):
+	# Format output dictionary
+	output = {}
+	output["form"] = ListingForm()
+	output["error"] = ""
+	output["success"] = ""
+	output["btntext"] = "Update Listing"
+	# Check if current user already has a listing
+	try:
+		existinglist = Listing.objects.get(owner=request.user)
+		output["form"] = ListingForm(instance=existinglist)
+	except Listing.DoesNotExist:
+		output["btntext"] = "Post Listing"
+
+	# Check form submission
+	if request.method == "POST":
+		output["form"] = ListingForm(request.POST)
+		# Confirm valid data
+		if output["form"].is_valid():
+			listing = Listing(owner=request.user)
+			listing.address = output["form"].cleaned_data['address']
+			listing.rent = output["form"].cleaned_data['rent']
+			listing.bedrooms = output["form"].cleaned_data['bedrooms']
+			listing.bathrooms = output["form"].cleaned_data['bathrooms']
+			listing.distance = output["form"].cleaned_data['distance']
+			listing.save()
+			# Set output messages
+			output["success"] = "Successfully created listing."
+			output["btntext"] = "Post Listing"
+		else:
+			# Set fail output messages
+			output["error"] = "Make sure contents of form are valid."
+	return render(request, 'create.html', output)
 
 def view(request):
-	return render(request, 'view.html')
+	listings = Listing.objects.all()
+	return render(request, 'view.html', {'listings': listings})
 
 
 # None View Methods (Middleware)

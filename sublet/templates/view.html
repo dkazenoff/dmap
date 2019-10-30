@@ -16,7 +16,28 @@
 			<h1 class="display-4 text-center">Sublet.io</h1>
 			<p class="lead text-center">A product by DMAP</p>
 			<hr class="my-4">
-			<p class="lead text-center">No listings posted at this time.</p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Address</th>
+						<th scope="col">Rent</th>
+						<th scope="col"># Bedrooms</th>
+						<th scope="col"># Bathrooms</th>
+						<th scope="col">Distance from RPI</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for listing in listings %}
+					<tr>
+						<td>{{ listing.address }}</td>
+						<td>{{ listing.rent }}</td>
+						<td>{{ listing.bedrooms }}</td>
+						<td>{{ listing.bathrooms }}</td>
+						<td>{{ listing.distance }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 			<p class="lead text-center">
 				<a class="btn btn-primary btn-lg" href="/sublet" role="button">Back</a>
 			</p>
