@@ -24,9 +24,15 @@
 				{% for field in form.visible_fields %}
 					<div class="form-group">
 						{{ field }}
-		      </div>
-		    {% endfor %}
-				<button type="submit" class="btn btn-primary mb-2 pull-left">{{btntext}}</button>
+					</div>
+				{% endfor %}
+				{% if created %}
+					<button type="submit" class="btn btn-primary mb-2 pull-left" name="submit">Update Listing</button>
+					<button type="submit" class="btn btn-primary mb-2 pull-left" name="delete">Delete Listing</button>
+				{% else %}
+					<button type="submit" class="btn btn-primary mb-2 pull-left" name="submit">Post Listing</button>
+				{% endif %}
+
 			</form>
 			<!-- END FORM -->
 			<p class="lead">
