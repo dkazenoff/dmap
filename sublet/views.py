@@ -41,32 +41,38 @@ def create_listing(request):
 	output["form"] = ListingForm()
 	output["error"] = ""
 	output["success"] = ""
-	output["btntext"] = "Update Listing"
 	# Check if current user already has a listing
 	try:
 		existinglist = Listing.objects.get(owner=request.user)
 		output["form"] = ListingForm(instance=existinglist)
+		output["created"] = True
 	except Listing.DoesNotExist:
-		output["btntext"] = "Post Listing"
+		output["created"] = False
 
 	# Check form submission
 	if request.method == "POST":
-		output["form"] = ListingForm(request.POST)
-		# Confirm valid data
-		if output["form"].is_valid():
-			listing = Listing(owner=request.user)
-			listing.address = output["form"].cleaned_data['address']
-			listing.rent = output["form"].cleaned_data['rent']
-			listing.bedrooms = output["form"].cleaned_data['bedrooms']
-			listing.bathrooms = output["form"].cleaned_data['bathrooms']
-			listing.distance = output["form"].cleaned_data['distance']
-			listing.save()
-			# Set output messages
-			output["success"] = "Successfully created listing."
-			output["btntext"] = "Post Listing"
+		print(request.POST)
+		if "delete" in request.POST:
+			Listing.objects.filter(owner=request.user).delete()
+			output["form"] = ListingForm()
+			output["success"] = "Successfully removed listing."
 		else:
-			# Set fail output messages
-			output["error"] = "Make sure contents of form are valid."
+			output["form"] = ListingForm(request.POST)
+			# Confirm valid data
+			if output["form"].is_valid():
+				listing = Listing(owner=request.user)
+				listing.address = output["form"].cleaned_data['address']
+				listing.rent = output["form"].cleaned_data['rent']
+				listing.bedrooms = output["form"].cleaned_data['bedrooms']
+				listing.bathrooms = output["form"].cleaned_data['bathrooms']
+				listing.distance = output["form"].cleaned_data['distance']
+				listing.save()
+				# Set output messages
+				output["success"] = "Successfully created listing."
+				output["created"] = True
+			else:
+				# Set fail output messages
+				output["error"] = "Make sure contents of form are valid."
 	return render(request, 'create.html', output)
 
 def view(request):
