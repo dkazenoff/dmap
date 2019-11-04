@@ -1,6 +1,7 @@
 from django.db import models
 
-# CAS User Object for Collection in MongoDB
+# CAS USER DB MODEL
+# Custom model object for Mongo Collection sublet_casuser
 class CASUser(models.Model):
 	username = models.CharField(max_length=6, primary_key=True)
 	first_name = models.CharField(max_length=20,default="")
@@ -9,7 +10,8 @@ class CASUser(models.Model):
 	phone = models.CharField(max_length=10,default="")
 	first_time = models.BooleanField(default=True)
 
-# Listing Object for Collection in MongoDB
+# LISTING DB MODEL
+# Custom model object for Mongo Collection sublet_listing
 class Listing(models.Model):
 	owner = models.CharField(max_length=6, primary_key=True)
 	address = models.CharField(max_length=100)

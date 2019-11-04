@@ -1,15 +1,21 @@
 from sublet.models import CASUser,Listing
 from django import forms
 
+# NEW USER FORM MODEL
+# Custom new user form based on CASUser Model
 class NewUserForm(forms.ModelForm):
 	class Meta:
 		model = CASUser
 		fields = ['first_name','last_name']
 
+# LISTING FORM MODEL
+# Custom listing form based on Listing Model
+# Excludes owner
 class ListingForm(forms.ModelForm):
 	class Meta:
 		model = Listing
 		exclude = ['owner']
+		# Widgets modify HTML attributes
 		widgets = {
             'address': forms.TextInput(attrs={'placeholder': 'Sublet address', 'class': 'form-control form-control-lg'}),
             'rent': forms.TextInput(attrs={'placeholder': 'Rent per month', 'class': 'form-control form-control-lg','step':'0.01'}),
