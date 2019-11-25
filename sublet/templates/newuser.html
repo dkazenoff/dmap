@@ -36,6 +36,7 @@
 		<p class="text-danger">{{error}}</p>
 
 		<!-- START FORM -->
+		{% block content %}
 		<form class="col-md-12" action="/sublet/newuser/" method="POST">
 			{% csrf_token %}
 			{% for field in form.visible_fields %}
@@ -51,7 +52,7 @@
 			<button type="submit" class="btn btn-primary mb-2" name="submit">Save Changes</button>
 			{% endif %}
 		</form>
-		
+		{% endblock %}
 		<!-- END FORM -->
 	</div>
 

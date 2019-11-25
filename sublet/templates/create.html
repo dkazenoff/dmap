@@ -20,6 +20,7 @@
 			<p class="text-success">{{success}}</p>
 			<p class="text-danger">{{error}}</p>
 			<!-- START FORM -->
+			{% block content %}
 			<form class="col-md-12" action="/sublet/create/" enctype="multipart/form-data" method="POST">
 				{% csrf_token %}
 				{% for field in form.visible_fields %}
@@ -35,6 +36,7 @@
 				{% endif %}
 
 			</form>
+			{% endblock %}
 			<!-- END FORM -->
 			<p class="lead">
 				<a class="btn btn-primary btn-lg" href="/sublet" role="button">Back</a>

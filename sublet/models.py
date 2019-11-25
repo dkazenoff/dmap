@@ -25,7 +25,7 @@ class Listing(models.Model):
 	bathrooms = models.IntegerField()
 	distance = models.DecimalField(max_digits=3, decimal_places=1)
 	imgA = models.ImageField(upload_to=specific_upload_path)
-	imgB = models.ImageField(upload_to=specific_upload_path)
-	imgC = models.ImageField(upload_to=specific_upload_path)
+	imgB = models.ImageField(upload_to=specific_upload_path,blank=True,default='img/default.jpg')
+	imgC = models.ImageField(upload_to=specific_upload_path,blank=True,default='img/default.jpg')
 
     
