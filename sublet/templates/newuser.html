@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>Sublet.io | Welcome New User</title>
+	<title>Sublet.io | Personal Information</title>
 
 	<!-- Bootstrap Core CSS -->
 	{% load static %}
@@ -20,27 +20,39 @@
 </head>
 
 <body>
-	<div class="container">
-		<h1>Welcome {{user.username}}</h1>
-		<p>We have noticed you are a new user! Please provide information...</p>
-		<p class="text-danger">{{error}}</p>
-		
-		<!-- START FORM -->
-		<form class="col-md-6" action="/sublet/newuser/" method="POST">
-			{% csrf_token %}
-			<div class="form-group">
-				<input class="form-control form-control-lg" type="text" name="first_name" placeholder="First Name">
-			</div>
-			<div class="form-group">
-				<input class="form-control form-control-lg" type="text" name="last_name" placeholder="Last Name">
-			</div>
-			<button type="submit" class="btn btn-primary mb-2">Save Changes</button>
-		</form>
-		<!-- END FORM -->
+	<div class="container text-center">
+        {% include "navbar.html" %}
 
-		<div class="col-md-6 text-center">
-			<a class="btn btn-primary btn-lg" href="/sublet/logout" role="button">Log Out</a>
-		</div>  
+        {% if not newuser %}
+		<h1>{{user.username}} Contact Information</h1>
+		{% endif %}
+		
+		{% if newuser %}
+		<h1>Welcome new user {{user.username}}!</h1>
+		<p>Please add some additional details about yourself.</p>
+		{% endif %}
+
+		<p class="text-success">{{success}}</p>
+		<p class="text-danger">{{error}}</p>
+
+		<!-- START FORM -->
+		<form class="col-md-12" action="/sublet/newuser/" method="POST">
+			{% csrf_token %}
+			{% for field in form.visible_fields %}
+				<div class="form-group">
+					{{ field }}
+				</div>
+			{% endfor %}
+			
+			{% if newuser %}
+			<button type="submit" class="btn btn-primary mb-2" name="newsubmit">Save Changes</button>
+			<button type="submit" class="btn btn-secondary mb-2" name="skip">Skip</button>
+			{% else %}
+			<button type="submit" class="btn btn-primary mb-2" name="submit">Save Changes</button>
+			{% endif %}
+		</form>
+		
+		<!-- END FORM -->
 	</div>
 
 	

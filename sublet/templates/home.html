@@ -11,21 +11,18 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 </head>
 <body>
-	<div class="container vertical-center">
+	<div class="container">
+	{% include "navbar.html" %}
+	
 		<div class="row">
 			<!-- SECTION #1 -->
 			<div class="col-md-12">
 				<div class="jumbotron">
 					<h1 class="display-4 text-center">Welcome to Sublet.io</h1>
-					<p class="lead text-center">Logged in as {{user}}</p>
 					<blockquote class="blockquote text-center">
 						<p class="mb-0">One by one, striving to help RPI students find housing for their upcoming school semester. Quickly. Safely. Intelligently.</p>
 						<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Team DMAP</cite></footer>
 					</blockquote>
-					<hr class="my-4">
-					<p class="lead text-center">
-						<a class="btn btn-primary btn-lg" href="/sublet/logout" role="button">Log Out</a>
-					</p>
 				</div>
 			</div>
 

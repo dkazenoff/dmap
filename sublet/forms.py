@@ -3,10 +3,16 @@ from django import forms
 
 # NEW USER FORM MODEL
 # Custom new user form based on CASUser Model
-class NewUserForm(forms.ModelForm):
+class UserSettingsForm(forms.ModelForm):
 	class Meta:
 		model = CASUser
-		fields = ['first_name','last_name']
+		fields = ['first_name','last_name','phone']
+		# Widgets modify HTML attributes
+		widgets = {
+            'first_name': forms.TextInput(attrs={'placeholder': 'First name', 'class': 'form-control form-control-lg'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'Last name', 'class': 'form-control form-control-lg'}),
+            'phone': forms.TextInput(attrs={'placeholder': 'Phone number', 'class': 'form-control form-control-lg'}),
+        }
 # The attributes we want rendered on the listing form
 
 # LISTING FORM MODEL
@@ -15,9 +21,8 @@ class NewUserForm(forms.ModelForm):
 class ListingForm(forms.ModelForm):
 	class Meta:
 		model = Listing
-		exclude = ['owner']
-		# Widgets modify HTML attributes
 		exclude = ['owner']	# Filter, since this is already passed in
+		# Widgets modify HTML attributes
 		widgets = {
             'address': forms.TextInput(attrs={'placeholder': 'Sublet address', 'class': 'form-control form-control-lg'}),
             'rent': forms.TextInput(attrs={'placeholder': 'Rent per month (per room)', 'class': 'form-control form-control-lg','step':'0.01'}),

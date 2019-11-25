@@ -30,3 +30,14 @@
   display: flex;
   align-items: center;
 }
+
+.navbar {
+  margin-top: 3vh;
+  color: #fff !important;
+}
+
+.intro-pic {
+  height: 300px !important;
+  width: 100% !important;
+}
+

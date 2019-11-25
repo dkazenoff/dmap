@@ -11,37 +11,70 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
     </head>
     <body>
-        <div class="jumbotron">
-            <h1 class="display-4 text-center"><a href="/sublet">Sublet.io</a></h1>
-            <p class="lead text-center">A product by DMAP</p>
-        </div>
-        <hr class="my-4">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="container">
+            {% include "navbar.html" %}
+            <div class="row">
                 {% for listing in listings %}
-                <tr>
-                    <td>
-                        <div class="card" style="width: 18rem">
-                            <div class="card-body">
-                                <h4 class="card-title">{{ listing.address }}</h4>
-                                <h6 class="card-text">Rent: ${{ listing.rent }}</h6>
-                                <h6 class="card-text">Bedrooms: {{ listing.bedrooms }}</h6>
-                                <h6 class="card-text">Bathrooms: {{ listing.bathrooms }}</h6>
-                                <h6 class="card-text">Distance: {{ listing.distance }} mi</h6>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <div>
+                          <!-- Nav tabs -->
+                          <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li role="presentation" class="active"><a href="#one-{{listing.owner}}" role="tab" data-toggle="tab">#1</a></li>
+                            <li role="presentation"><a href="#two-{{listing.owner}}" role="tab" data-toggle="tab">#2</a></li>
+                            <li role="presentation"><a href="#three-{{listing.owner}}" role="tab" data-toggle="tab">#3</a></li>
+                          </ul>
+
+                          <!-- Tab panes -->
+                          <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="one-{{listing.owner}}">
+                                <img src="{{listing.imgA.url}}" class="intro-pic" alt="IMGA">
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="two-{{listing.owner}}">
+                                <img src="{{listing.imgB.url}}" class="intro-pic" alt="IMGB">
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="three-{{listing.owner}}">
+                                <img src="{{listing.imgC.url}}" class="intro-pic" alt="IMGC">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="caption">
+                            <h2>${{ listing.rent }}</h2>
+                            <h4>{{ listing.address }}</h4>
+                            <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
+                            <p>{{ listing.distance }} mi from Campus</p>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#seller-{{listing.owner}}">
+                              Contact Seller
+                            </button>
+                            <div class="collapse" id="seller-{{listing.owner}}">
+                              <div class="well">
+                                <h3>{{listing.fullname}}</h3>
+                                <p>E: {{listing.email}}</p>
+                                <p>C: {{listing.phone}}</p>
+                              </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
                 {% endfor %}
-            </tbody>
-        </table>
-        <p class="lead text-center">
-            <a class="btn btn-primary btn-lg" href="/sublet" role="button">Back</a>
-        </p>
+            </div>
+        </div>
 
+            <!-- jQuery -->
+            {% load static %}
+            <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+
+            <!-- Bootstrap Core JavaScript -->
+            {% load static %}
+            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+            
+            <!-- IE10 viewport bug workaround -->
+            {% load static %}
+            <script type="text/javascript" src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+            
+            <!-- Placeholder Images -->
+            {% load static %}
+            <script type="text/javascript" src="{% static 'js/holder.min.js' %}"></script>
     </body>
 </html>
