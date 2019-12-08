@@ -67,7 +67,7 @@ AUTHENTICATION_BACKENDS = (
 
 # CAS CALLBACK RESPONSES
 CAS_RESPONSE_CALLBACKS = (
-    'sublet.views.processAuthUser',
+    'sublet.views.process_user',
 )
 
 ROOT_URLCONF = 'sddproject.urls'
@@ -135,8 +135,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# Image Parent Folder Directory
-# https://www.geeksforgeeks.org/python-uploading-images-in-django/
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
-MEDIA_URL = '/media/'

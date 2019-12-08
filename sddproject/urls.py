@@ -23,13 +23,16 @@ import cas.views
 urlpatterns = [
     path('', views.landing, name='Sublet Landing Page'),
     path('sublet/', views.home, name='home'),
-    path('sublet/create/', views.create_listing, name='create'),
+    path('sublet/manage/', views.listing_menu, name='list_menu'),
+    path('sublet/manage/create/', views.create_listing, name='list_create'),
+    path('sublet/manage/<str:list_id>', views.listing_menu, name='list_specific'),
+    path('sublet/manage/<str:list_id>/delete/', views.delete_listing, name='list_delete'),
+    path('sublet/manage/<str:list_id>/update/', views.update_listing, name='list_update'),
+    path('sublet/manage/<str:list_id>/upload/', views.upload_images, name='image_upload'),
+    path('sublet/manage/<str:list_id>/<str:img_id>/delete', views.delete_image, name='image_delete'),
     path('sublet/view/', views.view, name='view'),
-    path('sublet/newuser/', views.newuser, name='register'),
+    path('sublet/usermenu/', views.user_menu, name='setting'),
     path('sublet/login/', cas.views.login, name='login'),
     # Does not redirect back from CAS on localhost
 	path('sublet/logout/', cas.views.logout, name='logout'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

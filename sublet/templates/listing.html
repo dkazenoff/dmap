@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sublet.io | Manage Listings</title>
+	<!-- Bootstrap Core CSS -->
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+	<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+</head>
+<body>
+	<div class="container">
+		{% include "navbar.html" %}
+		<div class="row">
+			<!-- STATUS -->
+			<div class="col-md-4">
+				<div class="jumbotron text-center">
+					<h3>Your Listings ({{total}})</h3>
+					<!-- START FORM -->
+					{% block menu %}
+						{% for id, status in list_ids %}
+						<a href="/sublet/manage/{{id}}" class="btn {% if status %}btn-success{% else %}btn-danger{% endif %} btn-block {% if id in request.path %}active{% endif %}">Listing #{{forloop.counter}}</a>
+						{% endfor %}
+						{% if total < 3 %}
+						<a href="/sublet/manage/create/" class="btn btn-primary btn-block">+ Create Listing</a>
+						{% endif %}
+					{% endblock %}
+				</div>
+			</div>
+			
+			<div class="col-md-8">
+				{% if created != None %}
+					<div class="alert alert-success" role="alert"><strong>Success! </strong> New listing created.</div>
+				{% endif %}
+				{% if updated != None %}
+					{% if updated %}
+						<div class="alert alert-success" role="alert"><strong>Success! </strong> Listing has been updated.</div>
+					{% else %}
+						<div class="alert alert-danger" role="alert"><strong>Error! </strong> Listing was not updated. Check fields.</div>
+					{% endif %}
+				{% endif %}
+			<!-- IMAGE FORM -->
+			{% if total > 0 %}
+				<div class="jumbotron">
+					<h2>Sublet Pictures</h2>
+					<p>Used {{total_mb}} of 5.00 MB</p>
+					<div class="row">
+					{% for id, name in image_data %}
+					<div class="col-xs-6">{{name}}</div>
+					<div class="col-xs-6"><a href="{{request.path}}/{{id}}/delete" class="close pull-left"><span aria-hidden="true">&times;</span></a></div>
+					{% endfor %}
+					</div>
+					<!-- START FORM -->
+					{% block formOne %}
+					<form action="{{request.path}}/upload/" enctype="multipart/form-data" method="POST">
+						{% csrf_token %}
+						{% for field in image_form.visible_fields %}
+						<div class="form-group {% if field.errors %} has-error {% endif %}">
+							{{ field }}
+						</div>
+						{% endfor %}
+						<button type="submit" class="btn btn-success btn-block" name="imgsubmit">Save Images</button>
+					</form>
+					{% endblock %}
+					<!-- END FORM -->
+				</div>
+				<!-- BASE FORM -->
+				<div class="jumbotron">
+					<h2>Sublet Listing</h2>
+					<p class="text-success">{{success}}</p>
+					<!-- START FORM -->
+					{% block formTwo %}
+					<form action="{{request.path}}/update/" enctype="multipart/form-data" method="POST">
+						{% csrf_token %}
+						{% for field in list_form.visible_fields %}
+						<div class="form-group {% if field.errors %} has-error {% endif %}">
+							{{ field.label_tag }}
+							{{ field }}
+						</div>
+						{% endfor %}
+						<button type="submit" class="btn btn-success btn-block">Update Listing</button>
+					</form>
+					{% endblock %}
+					<!-- END FORM -->
+				</div>
+				<div class="alert alert-danger" role="alert"><strong>Disclaimer: </strong> Choosing to delete a listing will completely remove it from our database.</div>
+				<a href="{{request.path}}/delete" class="btn btn-danger btn-block">Remove Listing</a>
+			{% else %}
+			<div class="jumbotron text-center">
+				<h2>You have no available listings.<br/><small>Create your very first listing!</small></h2>
+			</div>
+			{% endif %}
+			</div>			
+		</div>
+	</div>
+</body>
+</html>

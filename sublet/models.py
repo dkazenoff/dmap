@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 # CAS USER DB MODEL
@@ -11,21 +12,28 @@ class CASUser(models.Model):
 	first_time = models.BooleanField(default=True)
 
 
-def specific_upload_path(instance, filename):
-    # file will be uploaded to media/<owner>/<filename>
-    return 'img_{0}/{1}'.format(instance.owner, filename)
-
 # LISTING DB MODEL
 # Custom model object for Mongo Collection sublet_listing
 class Listing(models.Model):
-	owner = models.CharField(max_length=6, primary_key=True)
+	list_id = models.CharField(max_length=32, primary_key=True)
+	owner = models.ForeignKey(CASUser, on_delete=models.CASCADE)
 	address = models.CharField(max_length=100)
 	rent = models.DecimalField(max_digits=6, decimal_places=2)
-	bedrooms = models.IntegerField()
-	bathrooms = models.IntegerField()
+	bedrooms = models.PositiveIntegerField()
+	bathrooms = models.PositiveIntegerField()
 	distance = models.DecimalField(max_digits=3, decimal_places=1)
-	imgA = models.ImageField(upload_to=specific_upload_path)
-	imgB = models.ImageField(upload_to=specific_upload_path,blank=True,default='img/default.jpg')
-	imgC = models.ImageField(upload_to=specific_upload_path,blank=True,default='img/default.jpg')
+	form_completion = models.BooleanField(default=False)
+	img_completion = models.BooleanField(default=False)
+
+# IMAGE DB MODEL
+# Custom model object for Mongo Collection sublet_image
+class Image(models.Model):
+	img_id = models.CharField(max_length=32, primary_key=True, default=None)
+	listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+	name = models.CharField(max_length=10)
+	c_type = models.CharField(max_length=50)
+	data = models.BinaryField(blank=True)
+	size = models.PositiveIntegerField(default=0)
+
 
     

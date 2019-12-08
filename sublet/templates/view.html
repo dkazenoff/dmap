@@ -18,24 +18,14 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <div>
-                          <!-- Nav tabs -->
-                          <ul class="nav nav-tabs nav-justified" role="tablist">
-                            <li role="presentation" class="active"><a href="#one-{{listing.owner}}" role="tab" data-toggle="tab">#1</a></li>
-                            <li role="presentation"><a href="#two-{{listing.owner}}" role="tab" data-toggle="tab">#2</a></li>
-                            <li role="presentation"><a href="#three-{{listing.owner}}" role="tab" data-toggle="tab">#3</a></li>
-                          </ul>
-
                           <!-- Tab panes -->
                           <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="one-{{listing.owner}}">
-                                <img src="{{listing.imgA.url}}" class="intro-pic" alt="IMGA">
+                            {% load custom_filters %}
+                            {% for image in listing.image_set.all %}
+                            <div class="thumbnail">
+                                <img src="data:{{image.c_type}};base64,{{image.data|bytes_to_base64}}" class="intro-pic" alt="{{image.name}}">
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="two-{{listing.owner}}">
-                                <img src="{{listing.imgB.url}}" class="intro-pic" alt="IMGB">
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="three-{{listing.owner}}">
-                                <img src="{{listing.imgC.url}}" class="intro-pic" alt="IMGC">
-                            </div>
+                            {% endfor %}
                           </div>
                         </div>
 
@@ -44,16 +34,9 @@
                             <h4>{{ listing.address }}</h4>
                             <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
                             <p>{{ listing.distance }} mi from Campus</p>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#seller-{{listing.owner}}">
-                              Contact Seller
-                            </button>
-                            <div class="collapse" id="seller-{{listing.owner}}">
-                              <div class="well">
-                                <h3>{{listing.fullname}}</h3>
-                                <p>E: {{listing.email}}</p>
-                                <p>C: {{listing.phone}}</p>
-                              </div>
-                            </div>
+                            <p>Contact Subletter {{listing.owner.username}}</p>
+                            <p>E: {{listing.owner.email}}</p>
+                            <p>C: {{listing.owner.phone}}</p>
                         </div>
                     </div>
                 </div>
@@ -61,20 +44,20 @@
             </div>
         </div>
 
-            <!-- jQuery -->
-            {% load static %}
-            <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+        <!-- jQuery -->
+        {% load static %}
+        <script type="text/javascript" src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
 
-            <!-- Bootstrap Core JavaScript -->
-            {% load static %}
-            <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-            
-            <!-- IE10 viewport bug workaround -->
-            {% load static %}
-            <script type="text/javascript" src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-            
-            <!-- Placeholder Images -->
-            {% load static %}
-            <script type="text/javascript" src="{% static 'js/holder.min.js' %}"></script>
+        <!-- Bootstrap Core JavaScript -->
+        {% load static %}
+        <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        
+        <!-- IE10 viewport bug workaround -->
+        {% load static %}
+        <script type="text/javascript" src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+        
+        <!-- Placeholder Images -->
+        {% load static %}
+        <script type="text/javascript" src="{% static 'js/holder.min.js' %}"></script>
     </body>
 </html>

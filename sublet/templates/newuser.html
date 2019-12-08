@@ -20,40 +20,47 @@
 </head>
 
 <body>
-	<div class="container text-center">
+	<div class="container">
         {% include "navbar.html" %}
+        <div class="row">
+        	<div class="col-md-2"></div>
+        	<div class="col-md-8 jumbotron">
+        		{% if not newuser %}
+	        	<h1 class="text-center">Contact Information</h1>
+				{% endif %}
+				
+				{% if newuser %}
+				<h1 class="text-center">Welcome {{user.username}}!</h1>
+				<p class="text-center">Please add some additional details about yourself.</p>
+				{% endif %}
 
-        {% if not newuser %}
-		<h1>{{user.username}} Contact Information</h1>
-		{% endif %}
+				<p class="text-success text-center">{{success}}</p>
+
+				<!-- START FORM -->
+				{% block content %}
+				<form class="col-md-12" action="/sublet/usermenu/" method="POST">
+					{% csrf_token %}
+					{% for field in form.visible_fields %}
+						<div class="form-group {% if field.errors %} has-error {% endif %}">
+							{{ field.label_tag }}
+							{{ field }}
+						</div>
+					{% endfor %}
+					
+					{% if newuser %}
+					<button type="submit" class="btn btn-success btn-block" name="submit">Save Changes</button>
+					<button type="submit" class="btn btn-secondary btn-block" name="skip">Skip</button>
+					{% else %}
+					<button type="submit" class="btn btn-success btn-block" name="submit">Save Changes</button>
+					{% endif %}
+				</form>
+				{% endblock %}
+				<!-- END FORM -->
+        	</div>
+        	<div class="col-md-2"></div>
+        	
+        </div>
 		
-		{% if newuser %}
-		<h1>Welcome new user {{user.username}}!</h1>
-		<p>Please add some additional details about yourself.</p>
-		{% endif %}
-
-		<p class="text-success">{{success}}</p>
-		<p class="text-danger">{{error}}</p>
-
-		<!-- START FORM -->
-		{% block content %}
-		<form class="col-md-12" action="/sublet/newuser/" method="POST">
-			{% csrf_token %}
-			{% for field in form.visible_fields %}
-				<div class="form-group">
-					{{ field }}
-				</div>
-			{% endfor %}
-			
-			{% if newuser %}
-			<button type="submit" class="btn btn-primary mb-2" name="newsubmit">Save Changes</button>
-			<button type="submit" class="btn btn-secondary mb-2" name="skip">Skip</button>
-			{% else %}
-			<button type="submit" class="btn btn-primary mb-2" name="submit">Save Changes</button>
-			{% endif %}
-		</form>
-		{% endblock %}
-		<!-- END FORM -->
 	</div>
 
 	
