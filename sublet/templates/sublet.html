@@ -9,6 +9,13 @@
         <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+        <style>
+    body {
+        background-color: #a3cfe3;
+    }
+    
+
+</style>
     </head>
     <body>
         <div class="container">
@@ -46,18 +53,18 @@
                       </a>
                     </div>
 
-                    <div class="col-md-12 jumbotron">
+                    <div style="background-color: #0d2a42" class="col-md-12 jumbotron">
                         <div class="col-md-6">
-                            <h2>${{ listing.rent }}</h2>
-                            <h4>{{ listing.address }}</h4>
-                            <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
-                            <p>{{ listing.distance }} mi from Campus</p>
+                            <h2 style="color:white">${{ listing.rent }}</h2>
+                            <h4 style="color:white">{{ listing.address }}</h4>
+                            <p style="color:white">{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
+                            <p style="color:white">{{ listing.distance }} mi from Campus</p>
                         </div>
                         <div class="col-md-6">
-                            <h4>{{ listing.owner.username }}</h4>
-                            <h4>{{ listing.owner.first_name }} {{ listing.owner.last_name }}</h4>
-                            <p>E: {{ listing.owner.email }}</p>
-                            <p>C: {{ listing.owner.phone }}</p>
+                            <h4 style="color:white">{{ listing.owner.username }}</h4>
+                            <h4 style="color:white">{{ listing.owner.first_name }} {{ listing.owner.last_name }}</h4>
+                            <p style="color:white">E: {{ listing.owner.email }}</p>
+                            <p style="color:white">C: {{ listing.owner.phone }}</p>
                         </div>
 
                     </div>
