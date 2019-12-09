@@ -14,7 +14,6 @@ def landing(request):
 # MAIN HOME PAGE
 def home(request):
 	# Confirm session has user logged in
-	print(request.user)
 	user = verifyUser(request)
 	if user.first_time:
 		return redirect('/sublet/usermenu')
@@ -195,11 +194,21 @@ def listing_menu(request, list_id = 0):
 	return render(request, 'listing.html', response)
 
 # VIEW LISTING PAGE
-def view(request):
+def listing_info(request, sort_by = "rent"):
 	# Retrieve and pass listings to HTML
-	listings = Listing.objects.filter(form_completion=True, img_completion=True).order_by('-rent', '-distance')
-	return render(request, 'view.html', {'listings': listings})
+	reverse = ("_rev" in sort_by)
+	sort_by = sort_by.replace("_rev","")
+	listings = Listing.objects.filter(form_completion=True, img_completion=True)
+	return render(request, 'view.html', {'listings': listings, "sort_by": sort_by, "reverse": reverse})
 
+def view_list(request, list_id):
+
+	try:
+		listing = Listing.objects.get(list_id=list_id, form_completion=True, img_completion=True)
+	except Listing.DoesNotExist:
+		listing = None
+
+	return render(request, 'sublet.html', {'listing': listing})
 
 # CAS CALLBACK FUNCTION FOR LOG IN
 def process_user(tree):

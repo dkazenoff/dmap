@@ -1,5 +1,5 @@
 sqlparse==0.2.4
-django
+django==2.2.6
 dnspython
 djongo
 django-cas-client

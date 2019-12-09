@@ -14,33 +14,75 @@
         <div class="container">
             {% include "navbar.html" %}
             <div class="row">
-                {% for listing in listings %}
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <div>
-                          <!-- Tab panes -->
-                          <div class="tab-content">
-                            {% load custom_filters %}
-                            {% for image in listing.image_set.all %}
-                            <div class="thumbnail">
-                                <img src="data:{{image.c_type}};base64,{{image.data|bytes_to_base64}}" class="intro-pic" alt="{{image.name}}">
-                            </div>
-                            {% endfor %}
-                          </div>
-                        </div>
-
-                        <div class="caption">
-                            <h2>${{ listing.rent }}</h2>
-                            <h4>{{ listing.address }}</h4>
-                            <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
-                            <p>{{ listing.distance }} mi from Campus</p>
-                            <p>Contact Subletter {{listing.owner.username}}</p>
-                            <p>E: {{listing.owner.email}}</p>
-                            <p>C: {{listing.owner.phone}}</p>
-                        </div>
+                <div class="col-md-12">
+                    <div class="dropdown pull-right">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="drop_filter" data-toggle="dropdown">Filter <span class="caret"></span></button>
+                        <ul class="dropdown-menu" aria-labelledby="drop_filter">
+                            <li><a href="/sublet/listings/rent">Rent: Low to High</a></li>
+                            <li><a href="/sublet/listings/rent_rev">Rent: High to Low</a></li>
+                            <li><a href="/sublet/listings/distance">Distance: Low to High</a></li>
+                            <li><a href="/sublet/listings/distance_rev">Distance: High to Low</a></li>
+                            <li><a href="/sublet/listings/bedrooms">Bedrooms: Low to High</a></li>
+                            <li><a href="/sublet/listings/bedrooms_rev">Bedrooms: High to Low</a></li>
+                            <li><a href="/sublet/listings/bathrooms">Bathrooms: Low to High</a></li>
+                            <li><a href="/sublet/listings/bathrooms_rev">Bathrooms: High to Low</a></li>
+                        </ul>
                     </div>
                 </div>
-                {% endfor %}
+                {% load custom_filters %}
+                {% if not reverse %}
+                    {% for listing in listings|convert_values|dictsort:sort_by %}
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <!-- IMAGE BOX -->
+                            <div>
+                              <div class="tab-content">
+                                
+                                {% with listing.image_set.all|dictsort:"size"|first as image %}
+                                <div class="thumbnail">
+                                    <img src="data:{{image.c_type}};base64,{{image.data|bytes_to_string}}" class="intro-pic" alt="{{image.name}}">
+                                </div>
+                                {% endwith %}
+                              </div>
+                            </div>
+                            <!-- DATA BOX -->
+                            <div class="caption">
+                                <h2>${{ listing.rent }}</h2>
+                                <h4>{{ listing.address }}</h4>
+                                <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
+                                <p>{{ listing.distance }} mi from Campus</p>
+                                <a href="/sublet/view/{{listing.list_id}}" class="btn btn-primary btn-block">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    {% for listing in listings|convert_values|dictsortreversed:sort_by %}
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <!-- IMAGE BOX -->
+                            <div>
+                              <div class="tab-content">
+                                
+                                {% with listing.image_set.all|dictsort:"size"|first as image %}
+                                <div class="thumbnail">
+                                    <img src="data:{{image.c_type}};base64,{{image.data|bytes_to_string}}" class="intro-pic" alt="{{image.name}}">
+                                </div>
+                                {% endwith %}
+                              </div>
+                            </div>
+                            <!-- DATA BOX -->
+                            <div class="caption">
+                                <h2>${{ listing.rent }}</h2>
+                                <h4>{{ listing.address }}</h4>
+                                <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
+                                <a href="/sublet/view/{{listing.list_id}}" class="btn btn-primary btn-block">View</a>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 
