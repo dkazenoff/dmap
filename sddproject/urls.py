@@ -30,7 +30,9 @@ urlpatterns = [
     path('sublet/manage/<str:list_id>/update/', views.update_listing, name='list_update'),
     path('sublet/manage/<str:list_id>/upload/', views.upload_images, name='image_upload'),
     path('sublet/manage/<str:list_id>/<str:img_id>/delete', views.delete_image, name='image_delete'),
-    path('sublet/view/', views.view, name='view'),
+    path('sublet/listings/', views.listing_info, name='view_all'),
+    path('sublet/listings/<str:sort_by>', views.listing_info, name='view_all'),
+    path('sublet/view/<str:list_id>', views.view_list, name='list_view'),
     path('sublet/usermenu/', views.user_menu, name='setting'),
     path('sublet/login/', cas.views.login, name='login'),
     # Does not redirect back from CAS on localhost
