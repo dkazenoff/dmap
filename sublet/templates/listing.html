@@ -9,6 +9,12 @@
 	<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+<style>
+    body {
+        background-color: #a3cfe3;
+    }
+    
+</style>
 </head>
 <body>
 	<div class="container">
@@ -16,8 +22,8 @@
 		<div class="row">
 			<!-- STATUS -->
 			<div class="col-md-4">
-				<div class="jumbotron text-center">
-					<h3>Your Listings ({{total}})</h3>
+				<div style="background-color: #0d2a42" class="jumbotron text-center">
+					<h3 style="color:white">Your Listings ({{total}})</h3>
 					<!-- START FORM -->
 					{% block menu %}
 						{% for id, status in list_ids %}
@@ -43,12 +49,12 @@
 				{% endif %}
 			<!-- IMAGE FORM -->
 			{% if total > 0 %}
-				<div class="jumbotron">
-					<h2>Sublet Pictures</h2>
-					<p>Used {{total_mb}} of 5.00 MB</p>
+				<div style="background-color: #0d2a42" class="jumbotron">
+					<h2 style="color:white">Sublet Pictures</h2>
+					<p style="color:white">Used {{total_mb}} of 5.00 MB</p>
 					<div class="row">
 					{% for id, name in image_data %}
-					<div class="col-xs-6">{{name}}</div>
+					<div style="color:white" class="col-xs-6">{{name}}</div>
 					<div class="col-xs-6"><a href="{{request.path}}/{{id}}/delete" class="close pull-left"><span aria-hidden="true">&times;</span></a></div>
 					{% endfor %}
 					</div>
@@ -57,7 +63,7 @@
 					<form action="{{request.path}}/upload/" enctype="multipart/form-data" method="POST">
 						{% csrf_token %}
 						{% for field in image_form.visible_fields %}
-						<div class="form-group {% if field.errors %} has-error {% endif %}">
+						<div style="color:white" class="form-group {% if field.errors %} has-error {% endif %}">
 							{{ field }}
 						</div>
 						{% endfor %}
@@ -67,15 +73,15 @@
 					<!-- END FORM -->
 				</div>
 				<!-- BASE FORM -->
-				<div class="jumbotron">
-					<h2>Sublet Listing</h2>
+				<div style="background-color: #0d2a42" class="jumbotron">
+					<h2 style="color:white">Sublet Listing</h2>
 					<p class="text-success">{{success}}</p>
 					<!-- START FORM -->
 					{% block formTwo %}
 					<form action="{{request.path}}/update/" enctype="multipart/form-data" method="POST">
 						{% csrf_token %}
 						{% for field in list_form.visible_fields %}
-						<div class="form-group {% if field.errors %} has-error {% endif %}">
+						<div style="color:white" class="form-group {% if field.errors %} has-error {% endif %}">
 							{{ field.label_tag }}
 							{{ field }}
 						</div>
@@ -88,7 +94,7 @@
 				<div class="alert alert-danger" role="alert"><strong>Disclaimer: </strong> Choosing to delete a listing will completely remove it from our database.</div>
 				<a href="{{request.path}}/delete" class="btn btn-danger btn-block">Remove Listing</a>
 			{% else %}
-			<div class="jumbotron text-center">
+			<div style="background-color: #0d2a42" class="jumbotron text-center">
 				<h2>You have no available listings.<br/><small>Create your very first listing!</small></h2>
 			</div>
 			{% endif %}

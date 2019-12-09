@@ -9,14 +9,21 @@
 	<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    <style>
+    body {
+        background-color: #a3cfe3;
+    }
+    
+
+</style>
 </head>
 <body>
 	<div class="container vertical-center">
-		<div class="jumbotron">
-			<h1 class="display-4 text-center">About Sublet.io</h1>
-			<p class="lead text-center">A product by DMAP</p>
+		<div style="background-color: #0d2a42" class="jumbotron">
+			<h1 style="color:white" class="display-4 text-center">About Sublet.io</h1>
+			<p style="color:white" class="lead text-center">A product by DMAP</p>
 			<blockquote class="blockquote text-center">
-				<p class="mb-0">Some information and details about this application that will convince user to click the log in button.</p>
+				<p style="color:white" class="mb-0">Some information and details about this application that will convince user to click the log in button.</p>
 				<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Team DMAP</cite></footer>
 			</blockquote>
 			<hr class="my-4">

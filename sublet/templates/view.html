@@ -40,13 +40,13 @@
                 {% if not reverse %}
                     {% for listing in listings|convert_values|dictsort:sort_by %}
                     <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
+                        <div style="background-color: #0d2a42" class="thumbnail">
                             <!-- IMAGE BOX -->
                             <div>
                               <div class="tab-content">
                                 
                                 {% with listing.image_set.all|dictsort:"size"|first as image %}
-                                <div class="thumbnail">
+                                <div style="background-color: #134166" style="border:none" class="thumbnail">
                                     <img src="data:{{image.c_type}};base64,{{image.data|bytes_to_string}}" class="intro-pic" alt="{{image.name}}">
                                 </div>
                                 {% endwith %}
@@ -54,11 +54,11 @@
                             </div>
                             <!-- DATA BOX -->
                             <div class="caption">
-                                <h2>${{ listing.rent }}</h2>
-                                <h4>{{ listing.address }}</h4>
-                                <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
-                                <p>{{ listing.distance }} mi from Campus</p>
-                                <a href="/sublet/view/{{listing.list_id}}" class="btn btn-primary btn-block">View</a>
+                                <h2 style="color:white">${{ listing.rent }}</h2>
+                                <h4 style="color:white">{{ listing.address }}</h4>
+                                <p style="color:white">{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
+                                <p style="color:white">{{ listing.distance }} mi from Campus</p>
+                                <a style="color:white" href="/sublet/view/{{listing.list_id}}" class="btn btn-primary btn-block">View</a>
                             </div>
                         </div>
                     </div>
