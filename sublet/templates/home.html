@@ -9,6 +9,14 @@
 	<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    
+<style>
+    body {
+        background-color: #a3cfe3;
+    }
+    
+
+</style>
 </head>
 <body>
 	<div class="container">
@@ -17,9 +25,9 @@
 		<div class="row">
 			<!-- SECTION #1 -->
 			<div class="col-md-12">
-				<div class="jumbotron">
-					<h1 class="display-4 text-center">Welcome to Sublet.io</h1>
-					<blockquote class="blockquote text-center">
+				<div style="background-color: #0d2a42" class="jumbotron">
+					<h1 class="display-4 text-center" style="color:white">Welcome to Sublet.io</h1>
+					<blockquote class="blockquote text-center" style="color:white">
 						<p class="mb-0">One by one, striving to help RPI students find housing for their upcoming school semester. Quickly. Safely. Intelligently.</p>
 						<footer class="blockquote-footer">Someone famous in <cite title="Source Title">Team DMAP</cite></footer>
 					</blockquote>
@@ -28,18 +36,18 @@
 
 			<!-- SECTION #1 -->
 			<div class="col-xs-12 col-md-6">
-				<div class="jumbotron">
-					<h2>View Listings</h2>
-					<p class="font-weight-light">Browse and view listings posted for potential sublets</p>
+				<div style="background-color: #0d2a42" class="jumbotron">
+					<h2 style="color:white">View Listings</h2>
+					<p class="font-weight-light" style="color:white">Browse and view listings posted for potential sublets</p>
 					<p class="lead text-center">
 						<a class="btn btn-primary btn-lg" href="/sublet/view" role="button">View</a>
 					</p>
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-6">
-				<div class="jumbotron">
-					<h2>Create Listing</h2>
-					<p class="font-weight-light">Sublet your own apartment or house to fellow RPI students</p>
+				<div style="background-color: #0d2a42" class="jumbotron">
+					<h2 style="color:white">Create Listing</h2>
+					<p class="font-weight-light" style="color:white">Sublet your own apartment or house to fellow RPI students</p>
 					<p class="lead text-center">
 						<a class="btn btn-primary btn-lg" href="/sublet/create" role="button">Create</a>
 					</p>

@@ -9,6 +9,13 @@
         <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+        <style>
+    body {
+        background-color: #a3cfe3;
+    }
+    
+
+</style>
     </head>
     <body>
         <div class="container">
@@ -16,7 +23,7 @@
             <div class="row">
                 {% for listing in listings %}
                 <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
+                    <div style="background-color: #134166" class="thumbnail">
                         <div>
                           <!-- Tab panes -->
                           <div class="tab-content">
@@ -29,14 +36,14 @@
                           </div>
                         </div>
 
-                        <div class="caption">
-                            <h2>${{ listing.rent }}</h2>
-                            <h4>{{ listing.address }}</h4>
-                            <p>{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
-                            <p>{{ listing.distance }} mi from Campus</p>
-                            <p>Contact Subletter {{listing.owner.username}}</p>
-                            <p>E: {{listing.owner.email}}</p>
-                            <p>C: {{listing.owner.phone}}</p>
+                        <div style="background-color: #0d2a42" class="caption">
+                            <h2 style="color:white">${{ listing.rent }}</h2>
+                            <h4 style="color:white">{{ listing.address }}</h4>
+                            <p style="color:white">{{ listing.bedrooms }} BD | {{ listing.bathrooms }} BA</p>
+                            <p style="color:white">{{ listing.distance }} mi from Campus</p>
+                            <p style="color:white">Contact Subletter {{listing.owner.username}}</p>
+                            <p style="color:white">E: {{listing.owner.email}}</p>
+                            <p style="color:white">C: {{listing.owner.phone}}</p>
                         </div>
                     </div>
                 </div>
