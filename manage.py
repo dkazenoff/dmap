@@ -5,6 +5,7 @@ import sys
 
 
 def main():
+    """Main function to interact with server code based on command line args"""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sddproject.settings')
     try:
         from django.core.management import execute_from_command_line
